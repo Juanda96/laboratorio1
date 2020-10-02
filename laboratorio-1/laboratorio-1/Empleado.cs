@@ -84,9 +84,9 @@ namespace laboratorio_1
             }
         }
 
-        private int _salario;
+        private double _salario;
 
-        public int salario
+        public double salario
         {
             get { return _salario; }
             set
@@ -116,8 +116,28 @@ namespace laboratorio_1
             _salario = salario;
         }
 
+        public void aumentarSueldo() 
+        {
+            if ((_puesto.Equals("Jefe")) || (_puesto.Equals("jefe")))
+            {
+            }
+            else if (_salario < 600000)
+            {
+                _salario += _salario * 0.05;
+            }
+            else {
+                _salario += _salario * 0.02;
+            }
+        }
+
+        private string obtenerTiempoTotal() {
+            return " Años: " + (DateTime.Now.Year - _fechaIngreso.Year) + " Meses: " + (DateTime.Now.Month - _fechaIngreso.Month);
+
+
+        }
+
         public string imprimirEmpleado() {
-            return _cedula+ " - " + _nombre+ " "+ _apellido + " - "+ direccion+" - "+ puesto+ " - " + fechaIngreso +" - "+" Años: " +(DateTime.Now.Year- _fechaIngreso.Year) + "Meses: "+( DateTime.Now.Month- _fechaIngreso.Month) +" - "+ _telefono +" - " +_salario;
+            return _cedula+ " - " + _nombre+ " "+ _apellido + " - "+ direccion+" - "+ puesto+ " - " + fechaIngreso +" - "+ obtenerTiempoTotal() +" - "+ _telefono +" - " +_salario;
         }
     }
 }

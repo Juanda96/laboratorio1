@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using logGenerator;
 
 namespace laboratorio_1
 {
@@ -12,10 +13,11 @@ namespace laboratorio_1
         static void Main(string[] args)
         {
             LinkedList<Empleado> empleados = new LinkedList<Empleado>();
+            log logs = new log();
             do
             {
                 Console.WriteLine("1 - Ingresar Empleado" + Environment.NewLine + "2 - Imprime los empleados" + Environment.NewLine +
-                "3 - Eliminar Empleado" + Environment.NewLine + "4 - Imprimir datos" + Environment.NewLine + Environment.NewLine + "Elija una opción");
+                "3 - Aumentar el salario a todos los empleados" + Environment.NewLine + Environment.NewLine + "Elija una opción");
                 int opt = int.Parse(Console.ReadLine());
                 switch (opt)
                 {
@@ -60,7 +62,6 @@ namespace laboratorio_1
                                 Console.WriteLine("Ingrese el salario");
                                 salario = int.Parse(Console.ReadLine());
                             } while ((salario < 449999));
-                            Console.WriteLine(salario);
                             emp.salario = salario;
                             empleados.AddLast(emp);
                         }
@@ -68,6 +69,8 @@ namespace laboratorio_1
                         {
 
                             Console.WriteLine(ex.Message);
+                            logs.agregarLog(ex.Message+ " - "+ ex.StackTrace);
+
                         }
                         break;
                     case 2:
@@ -76,6 +79,14 @@ namespace laboratorio_1
                         {
                             Console.WriteLine(item.imprimirEmpleado());
                         }
+                        break;
+
+                    case 3:
+                        foreach (Empleado item in empleados)
+                        {
+                            item.aumentarSueldo();
+                        }
+                        Console.WriteLine("Salarios aumentados satisfactoriamente");
                         break;
 
 
