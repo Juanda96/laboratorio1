@@ -34,7 +34,7 @@ namespace laboratorio_1
 
         private string _direccion;
 
-        public string MyProperty
+        public string direccion
         {
             get { return _direccion; }
             set { _direccion = value; }
@@ -53,7 +53,17 @@ namespace laboratorio_1
         public DateTime fechaIngreso
         {
             get { return _fechaIngreso; }
-            set { _fechaIngreso = value; }
+            set
+            {
+                if (_fechaIngreso != DateTime.Today)
+                {
+                    _fechaIngreso = value;
+                }
+                else 
+                {
+                    throw new Exception("La fecha ingresada no es valida");
+                }
+            }
         }
 
         private int _telefono;
@@ -63,7 +73,7 @@ namespace laboratorio_1
             get { return _telefono; }
             set
             {
-                if (_telefono > 9999999 && _telefono < 100000000)
+                if (_telefono > 9999999 || _telefono < 100000000)
                 {
                     _telefono = value;
                 }
@@ -81,15 +91,33 @@ namespace laboratorio_1
             get { return _salario; }
             set
             {
-                if (_salario >= 450000)
+                if (value > 449999)
                 {
                     _salario = value;
-                }
-                else
+                }else
                 {
-                    throw new Exception("Valor invalido");
+                    throw new Exception("Valor invalido" + " "+ _salario);
                 }
             }
+        }
+        public Empleado()
+        {
+        }
+
+        public Empleado(int cedula, string nombre, string apellido, string direccion, string puesto, DateTime fechaIngreso, int telefono, int salario)
+        {
+            _cedula = cedula;
+            _nombre = nombre;
+            _apellido = apellido;
+            _direccion = direccion;
+            _puesto = puesto;
+            _fechaIngreso = fechaIngreso;
+            _telefono = telefono;
+            _salario = salario;
+        }
+
+        public string imprimirEmpleado() {
+            return _cedula+ " - " + _nombre+ " "+ _apellido + " - "+ direccion+" - "+ puesto+ " - " + fechaIngreso +" - "+" Años: " +(DateTime.Now.Year- _fechaIngreso.Year) + "Meses: "+( DateTime.Now.Month- _fechaIngreso.Month) +" - "+ _telefono +" - " +_salario;
         }
     }
 }
